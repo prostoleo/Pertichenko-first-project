@@ -3,13 +3,8 @@
 const money = +prompt('Ваш бюджет на месяц');
 const time = prompt('Введите дату в формате YYYY-MM-DD');
 
-const firstExpense = prompt('Введите обязательную статю расходов в этом месяце');
-const firstExpenseCost = +prompt('Во сколько обойдется?');
-const secondExpense = prompt('Введите обязательную статю расходов в этом месяце');
-const secondExpenseCost = +prompt('Во сколько обойдется?');
+const counter = +prompt(' Сколько у вас статей обязателньых расходов?');
 
-console.log(secondExpense);
-console.log(typeof(secondExpense));
 
 let appData = {
   money,
@@ -26,12 +21,24 @@ let appData = {
   savings: false
 };
 
-appData.expenses[firstExpense] = firstExpenseCost;
-appData.expenses[secondExpense] = secondExpenseCost;
+let totalCost = 0;
 
-console.log(appData.expenses[firstExpense]);
+for (let i = 0; i < counter; i++) {
+  let expense = prompt('Введите обязательную статю расходов в этом месяце');
+  let cost = +prompt('Во сколько обойдется?');
+  totalCost += cost;
 
-let remainMoneyPerDay = (money - (appData.expenses[firstExpense] + appData.expenses[secondExpense])) / 30;
+  if (expense && cost && typeof(expense) !=null && typeof(cost) !=null) {
+    appData.expenses[expense] = cost;
+  } else {
+    alert(' Неправильно введены данные ');
+    i--;
+  }
+
+  console.log(i);
+}
+
+appData.remainMoneyPerDay = (money - totalCost) / 30;
 
 console.log(appData);
 console.log(remainMoneyPerDay);
